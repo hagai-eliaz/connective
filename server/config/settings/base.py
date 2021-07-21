@@ -81,8 +81,6 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth",
     "django_filters",
     "taggit",
-    'location_field',
-    'dlf_app',
 ]
 
 LOCAL_APPS = [
@@ -336,34 +334,27 @@ JAZZMIN_SETTINGS = {
 
 TAGGIT_CASE_INSENSITIVE = True
 
-LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
+LOCATION_FIELD_PATH = STATIC_URL + "location_field"
 
 LOCATION_FIELD = {
-    'map.provider': 'google',
-    'map.zoom': 13,
-
-    'search.provider': 'google',
-    'search.suffix': '',
-
+    "map.provider": "google",
+    "map.zoom": 13,
+    "search.provider": "google",
+    "search.suffix": "",
     # Google
-    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-    'provider.google.api_key': '<INSERT GOOGLE API KEY>',
-    'provider.google.api_libraries': '',
-    'provider.google.map.type': 'ROADMAP',
-
+    "provider.google.api": "//maps.google.com/maps/api/js?sensor=false",
+    "provider.google.api_key": "AIzaSyDKkYpjJONrNZN-BtOXR7ZhSEqSI4pnSdo",
+    "provider.google.api_libraries": "",
+    "provider.google.map.type": "ROADMAP",
     # Mapbox
-    'provider.mapbox.access_token': '',
-    'provider.mapbox.max_zoom': 18,
-    'provider.mapbox.id': 'mapbox.streets',
-
+    "provider.mapbox.access_token": "",
+    "provider.mapbox.max_zoom": 18,
+    "provider.mapbox.id": "mapbox.streets",
     # OpenStreetMap
-    'provider.openstreetmap.max_zoom': 18,
-
+    "provider.openstreetmap.max_zoom": 18,
     # misc
-    'resources.root_path': LOCATION_FIELD_PATH,
-    'resources.media': {
-        'js': (
-            LOCATION_FIELD_PATH + '/js/form.js',
-        ),
+    "resources.root_path": LOCATION_FIELD_PATH,
+    "resources.media": {
+        "js": (LOCATION_FIELD_PATH + "/js/form.js",),
     },
 }

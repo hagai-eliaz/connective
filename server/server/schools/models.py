@@ -2,19 +2,20 @@ import random
 import uuid
 
 from django.db import models
+from location_field.models.plain import PlainLocationField
 
 from server.users.models import User
 from server.utils.model_fields import PhoneNumberField
 
 
 def random_slug():
-    return uuid.uuid4().hex.upper()[0 : random.randint(10, 22)]
+    return uuid.uuid4().hex.upper()[0 : random.randint(10, 22)]  # noqa: E203
 
 
 class School(models.Model):
     slug = models.CharField(max_length=40, default=random_slug, unique=True)
     name = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
+    address = PlainLocationField()
     address_city = models.CharField(max_length=50)
     zip_city = models.CharField(max_length=15)
     school_code = models.CharField(max_length=15)
