@@ -16,6 +16,19 @@
           class="checkbox-group"
           :class="{ 'checkbox-small': $vuetify.breakpoint.mobile }"
         />
+
+
+        <v-slider
+          label="מרחק"
+          class="distance-slider pt-16 pl-10"
+          thumb-label="always"
+          max="30"
+          min="5"
+          tick-size="5"
+          step="5"
+          v-on:change="distanceSliderChange"
+        ></v-slider>
+
       </v-col>
       <v-col
         cols="8"
@@ -108,7 +121,12 @@ export default {
   },
 
   methods: {
-    ...mapActions("pagination", ["incrementPage", "updatePagination", "addFieldFilter", "removeFieldFilter"]),
+    ...mapActions("pagination", [
+      "incrementPage",
+      "updatePagination",
+      "addFieldFilter",
+      "removeFieldFilter",
+    ]),
     ...mapActions("snackbar", ["showMessage"]),
     ...mapActions("consumerProgram", [
       "getProgramsList",
@@ -138,6 +156,10 @@ export default {
       } else {
         await this.removeFieldFilter("tags")
       }
+    },
+
+    async distanceSliderChange(value) {
+      await this.addFieldFilter({ fieldName: "distance", value: value })
     },
 
     async getPrograms() {
@@ -232,6 +254,11 @@ export default {
   margin: 5px;
 }
 .checkbox-group {
+  float: right;
+  width: 100%;
+}
+
+.distance-slider {
   float: right;
   width: 100%;
 }
