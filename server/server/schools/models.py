@@ -12,10 +12,16 @@ def random_slug():
     return uuid.uuid4().hex.upper()[0 : random.randint(10, 22)]  # noqa: E203
 
 
+def get_activity_model():
+    from server.organizations.models import Activity
+
+    return Activity
+
+
 class School(models.Model):
     slug = models.CharField(max_length=40, default=random_slug, unique=True)
     name = models.CharField(max_length=50)
-    address = PlainLocationField()
+    address = models.CharField(max_length=50)
     address_city = models.CharField(max_length=50)
     zip_city = models.CharField(max_length=15)
     school_code = models.CharField(max_length=15)
@@ -31,6 +37,11 @@ class School(models.Model):
         blank=True,
         related_name="last_updated_by_me_schools",
     )
+    location = PlainLocationField(
+        based_fields=["address", "address_city"], default="0,0"
+    )
+
+    activity_distance_cache = models.JSONField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} | {self.address_city} | {self.slug}"

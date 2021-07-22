@@ -25,4 +25,5 @@ dj-rest-auth[with_social] # https://dj-rest-auth.readthedocs.io/en/latest/instal
 django-filter==2.4.0 # https://django-filter.readthedocs.io/en/stable/
 django-jazzmin==2.4.7 # https://github.com/farridav/django-jazzmin
 django-taggit==1.5.1 # https://django-taggit.readthedocs.io/
-django-location-field # https://github.com/caioariede/django-location-field
+django-location-field==2.1.0 # https://github.com/caioariede/django-location-field
+django-json-widget==1.1.1

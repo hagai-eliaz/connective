@@ -81,6 +81,7 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth",
     "django_filters",
     "taggit",
+    "django_json_widget",
 ]
 
 LOCAL_APPS = [
@@ -346,10 +347,6 @@ LOCATION_FIELD = {
     "provider.google.api_key": "AIzaSyDKkYpjJONrNZN-BtOXR7ZhSEqSI4pnSdo",
     "provider.google.api_libraries": "",
     "provider.google.map.type": "ROADMAP",
-    # Mapbox
-    "provider.mapbox.access_token": "",
-    "provider.mapbox.max_zoom": 18,
-    "provider.mapbox.id": "mapbox.streets",
     # OpenStreetMap
     "provider.openstreetmap.max_zoom": 18,
     # misc

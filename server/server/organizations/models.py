@@ -1,6 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from location_field.models.plain import PlainLocationField
 from taggit.managers import TaggableManager
 
 from server.schools.models import School
@@ -32,18 +33,6 @@ class Organization(models.Model):
     number_of_employees = models.PositiveIntegerField(null=True, blank=True)
     number_of_members = models.PositiveIntegerField(null=True, blank=True)
     number_of_volunteers = models.PositiveIntegerField(null=True, blank=True)
-    location_lon = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
-        null=True,
-        blank=True,
-    )
-    location_lat = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
-        null=True,
-        blank=True,
-    )
 
     address_city = models.CharField(max_length=150, null=True, blank=True)
     address_street = models.CharField(max_length=150, null=True, blank=True)
@@ -52,6 +41,7 @@ class Organization(models.Model):
     cities = models.JSONField(null=True, blank=True)
     districts = models.JSONField(null=True, blank=True)
     union_type = models.CharField(max_length=50, null=True, blank=True)
+    location = PlainLocationField(based_fields=[], default="0,0")
 
     def __str__(self):
         return f"{self.name} | {self.slug}"
@@ -89,6 +79,8 @@ class Activity(models.Model):
             )
         ],
     )
+    address = models.CharField(max_length=50)
+    location = PlainLocationField(based_fields=["address"], default="0,0")
 
     def __str__(self):
         try:
