@@ -13,6 +13,7 @@ class ActivityFilter(django_filters.FilterSet):
     domain__in = CharInFilter(field_name="domain", lookup_expr="in")
     target_audience = django_filters.CharFilter(method="target_audience_filter")
     tags = django_filters.CharFilter(method="tags_filter")
+    distance = django_filters.CharFilter(method="distance_filter")
 
     class Meta:
         model = Activity
@@ -30,3 +31,10 @@ class ActivityFilter(django_filters.FilterSet):
 
     def tags_filter(self, queryset, name, value):
         return queryset.filter(tags__name__in=value.split(","))
+
+    def distance_filter(self, queryset, name, value):
+        import pdb
+
+        pdb.set_trace()
+        return
+        # return queryset.filter(tags__name__in=value.split(","))
