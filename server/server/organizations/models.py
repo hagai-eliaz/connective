@@ -6,6 +6,7 @@ from taggit.managers import TaggableManager
 
 from server.schools.models import School
 from server.users.models import Consumer, Instructor, User
+from server.utils.distance_measure import check_google_distance, check_linear_distance
 from server.utils.model_fields import random_slug
 
 
@@ -87,6 +88,47 @@ class Activity(models.Model):
             return f"{self.name} | {self.slug} | {self.originization.name}"
         except AttributeError:
             return f"{self.name} | {self.slug}"
+
+    def add_activity_to_schools(self):
+        activity = self
+        for school in School.objects.all():
+            activity_location = tuple(
+                float(coord) for coord in activity.location.split(",")
+            )
+            school_coords = tuple(float(coord) for coord in school.location.split(","))
+            free_distance = check_linear_distance(school_coords, activity_location)
+            if free_distance < 5:
+                google_status = check_google_distance(school_coords, activity_location)
+                school.activity_distance_cache["5_and_less"][activity.slug] = {
+                    "google_distance": google_status[0],
+                    "distance": google_status[1],
+                }
+            elif free_distance < 10:
+                school.activity_distance_cache["10_and_less"][activity.slug] = {
+                    "google_distance": False,
+                    "distance": free_distance,
+                }
+            elif free_distance < 15:
+                school.activity_distance_cache["15_and_less"][activity.slug] = {
+                    "google_distance": False,
+                    "distance": free_distance,
+                }
+            elif free_distance < 20:
+                school.activity_distance_cache["20_and_less"][activity.slug] = {
+                    "google_distance": False,
+                    "distance": free_distance,
+                }
+            elif free_distance < 25:
+                school.activity_distance_cache["25_and_less"][activity.slug] = {
+                    "google_distance": False,
+                    "distance": free_distance,
+                }
+            elif free_distance < 30:
+                school.activity_distance_cache["30_and_less"][activity.slug] = {
+                    "google_distance": False,
+                    "distance": free_distance,
+                }
+            school.save()
 
 
 class ActivityMedia(models.Model):

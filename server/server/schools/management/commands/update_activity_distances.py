@@ -1,14 +1,11 @@
-import googlemaps
-import haversine as hs
 from django.core.management.base import BaseCommand
-from haversine import Unit
 
 from server.organizations.models import Activity
 from server.schools.models import School
+from server.utils.distance_measure import check_google_distance, check_linear_distance
 
 
 class Command(BaseCommand):
-    API_KEY = "AIzaSyDKkYpjJONrNZN-BtOXR7ZhSEqSI4pnSdo"
     ACTIVITY_DICT = {
         "5_and_less": {},
         "10_and_less": {},
@@ -23,26 +20,13 @@ class Command(BaseCommand):
         "parser.add_argument('some_number', nargs='+', type=int)"
         pass
 
-    def __check_google_distance(self, loc1, loc2):
-        gmaps = googlemaps.Client(key=self.API_KEY)
-        result = gmaps.distance_matrix(loc1, loc2, mode="driving")
-        try:
-            return True, result["rows"][0]["elements"][0]["duration"]["value"]
-        except KeyError:
-            return False, result["rows"][0]["elements"][0]["duration"]["value"]
-
-    def __check_linear_distance(self, school_coords, org_location):
-        return hs.haversine(school_coords, org_location, unit=Unit.KILOMETERS)
-
-    def create_all(self, school):
+    def update_school_with_activity(self, school):
         for activity in Activity.objects.all():
             org_location = tuple(float(coord) for coord in activity.location.split(","))
             school_coords = tuple(float(coord) for coord in school.location.split(","))
-            free_distance = self.__check_linear_distance(school_coords, org_location)
+            free_distance = check_linear_distance(school_coords, org_location)
             if free_distance < 5:
-                google_status = self.__check_google_distance(
-                    school_coords, org_location
-                )
+                google_status = check_google_distance(school_coords, org_location)
                 self.ACTIVITY_DICT["5_and_less"][activity.slug] = {
                     "google_distance": google_status[0],
                     "distance": google_status[1],
@@ -77,7 +61,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for school in School.objects.all():
-            distance_cache = self.create_all(school)
+            distance_cache = self.update_school_with_activity(school)
             import pdb
 
             pdb.set_trace()
