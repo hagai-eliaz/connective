@@ -9,13 +9,7 @@ from server.utils.model_fields import PhoneNumberField
 
 
 def random_slug():
-    return uuid.uuid4().hex.upper()[0 : random.randint(10, 22)]  # noqa: E203
-
-
-def get_activity_model():
-    from server.organizations.models import Activity
-
-    return Activity
+    return uuid.uuid4().hex.upper()[0 : random.randint(10, 22)]  # noqa
 
 
 class School(models.Model):
