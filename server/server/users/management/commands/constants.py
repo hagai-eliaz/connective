@@ -10,8 +10,7 @@ ORGANIZATION_PAYLOAD = {
     "number_of_employees": 100,
     "number_of_members": 200,
     "number_of_volunteers": 30,
-    "location_lon": 32.109333,
-    "location_lat": 34.855499,
+    "location": "32.0732734,34.7970061",
     "address_city": "city",
     "address_street": "addr",
     "address_house_num": "13",
@@ -31,6 +30,7 @@ SCHOOL_PAYLOAD = {
     "contact_phone": "0521234567",
     "website": "https://school.com",
     "grade_levels": [1, 2, 3, 4, 5, 6],
+    "location": "32.075447434961156,34.79573965072632",
 }
 
 ACTIVITY_PAYLOADS = [
@@ -42,6 +42,7 @@ ACTIVITY_PAYLOADS = [
         "contact_name": "John Smith",
         "logo": "https://picsum.photos/200/300",
         "phone_number": "0521234567",
+        "location": "40.076792904088855,76.79646921157836",
     },
     {
         "name": "Activity Two",
@@ -51,6 +52,7 @@ ACTIVITY_PAYLOADS = [
         "contact_name": "David Cohen",
         "logo": "https://picsum.photos/200/300",
         "phone_number": "0521234567",
+        "location": "32.076792904088855,34.79646921157836",
     },
 ]
 
